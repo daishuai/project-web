@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!ELEMENT root (SqlElement+) >
+<!ELEMENT SqlElement (Sql,Description) >
+<!ELEMENT Sql (#PCDATA)>
+<!ELEMENT Description (#PCDATA)>
+<!ATTLIST SqlElement key CDATA #REQUIRED>

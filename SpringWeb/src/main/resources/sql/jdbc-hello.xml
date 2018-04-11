@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE root SYSTEM "sql.dtd">
+<root>
+    <SqlElement key="QUERYT_NAME">
+        <Sql>
+            <![CDATA[
+                select * from user where username = ?
+            ]]>
+        </Sql>
+        <Description>查询用户名</Description>
+    </SqlElement>
+</root>

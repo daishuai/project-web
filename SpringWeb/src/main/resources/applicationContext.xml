@@ -15,4 +15,6 @@
 
     <bean id="customBeanPostProcessor" class="com.daishuai.aware.CustomBeanPostProcessor"/>
 
+    <bean id="systemContext" class="com.daishuai.system.SystemContext" init-method="init" scope="singleton"/>
+
 </beans>
