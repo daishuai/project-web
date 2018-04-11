@@ -1,0 +1,665 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE root SYSTEM "sql.dtd">
+<root>
+<SqlElement key="SELE_GUID">
+    <Sql><![CDATA[
+select sys_guid() fkxx_id from dual
+	]]></Sql>
+    <Description>查询GUID</Description>
+</SqlElement>
+<SqlElement key="DLZHXX_CX_SWRYDM">
+    <Sql><![CDATA[
+SELECT SWRY_DM FROM SYN_CTAISCX_QX_DLZHXX WHERE DLZH_DM=?
+	]]></Sql>
+    <Description>查询税务人员代码</Description>
+</SqlElement>
+<SqlElement key="NSRDL_FXTX">
+    <Sql><![CDATA[
+select t1.zbmc from tax_rate.wp_fx_fxxx t,tax_rate.wp_fx_fxmx t1 where t.zt_dm in ('2','3','7','8') and t.nsrdzdah = ? and t.fxxx_id=t1.fxxx_id
+	]]></Sql>
+    <Description>登录时查询是否有风险信息</Description>
+</SqlElement>
+<SqlElement key="SWD_FXTS_DTS">
+    <Sql><![CDATA[
+ select t1.*,t.*
+    from tax_rate.wp_fx_fxxx t, fx_czjl t1
+   where t.fxxx_id = t1.fxxx_id(+)
+     and t.zt_dm = '0'
+     and t.ydczry_dm like '%' || ? || '%'
+	]]></Sql>
+    <Description>查询待推送风险信息</Description>
+</SqlElement>
+<SqlElement key="SWD_FXTS_DYD">
+    <Sql><![CDATA[
+    select t1.*,t.*,t2.name
+    from tax_rate.wp_fx_fxxx t, fx_czjl t1 ,tax_rate.wp_fx_zt t2
+   where t.fxxx_id = t1.fxxx_id(+)
+     and (t.zt_dm = '2' or t.zt_dm is null or t.zt_dm = '7')
+     and t.ydczry_dm like '%' || ? || '%'
+     and t.zt_dm=t2.id
+	]]></Sql>
+    <Description>查询待阅读风险信息</Description>
+</SqlElement>
+<SqlElement key="SWD_FXTS_DFK">
+    <Sql><![CDATA[
+ select t1.*,t.*
+    from tax_rate.wp_fx_fxxx t, fx_czjl t1
+   where t.fxxx_id = t1.fxxx_id(+)
+     and (t.zt_dm = '3' or t.zt_dm is null or t.zt_dm = '8')
+     and t.ydczry_dm like '%' || ? || '%'
+	]]></Sql>
+    <Description>查询待反馈风险信息</Description>
+</SqlElement>
+<SqlElement key="SWD_LOAD_DSH">
+    <Sql><![CDATA[
+select t.*, t1.*
+ from tax_rate.wp_fx_fxxx t, fx_czjl t1
+where t.fxxx_id = t1.fxxx_id(+)
+  and t.zt_dm in ('4', '9')
+  and t.ydczry_dm like '%' || ? || '%'
+	]]></Sql>
+    <Description>查询待审核风险信息</Description>
+</SqlElement>
+<SqlElement key="SWD_LOAD_SHTG">
+    <Sql><![CDATA[
+select t.*, t1.*
+ from tax_rate.wp_fx_fxxx t, fx_czjl t1
+where t.fxxx_id = t1.fxxx_id(+)
+  and t.zt_dm in ('5', '10')
+  and t.ydczry_dm like '%' || ? || '%'
+	]]></Sql>
+    <Description>查询审核通过风险信息</Description>
+</SqlElement>
+<SqlElement key="SWD_LOAD_SHWTG">
+    <Sql><![CDATA[
+select t.*, t1.*
+ from tax_rate.wp_fx_fxxx t, fx_czjl t1
+where t.fxxx_id = t1.fxxx_id(+)
+  and t.zt_dm in ('11')
+  and t.ydczry_dm like '%' || ? || '%'
+	]]></Sql>
+    <Description>查询审核未通过风险信息</Description>
+</SqlElement>
+<SqlElement key="SWD_FXTS_FXZB">
+    <Sql><![CDATA[
+select t.*
+  from tax_rate.wp_fx_fxxx t
+ where t.fxxx_id = ?
+	]]></Sql>
+    <Description>查询风险主表</Description>
+</SqlElement>
+<SqlElement key="SWD_FXTS_FXMX">
+    <Sql><![CDATA[
+select t1.*
+  from tax_rate.wp_fx_fxxx t, tax_rate.wp_fx_fxmx t1
+ where t.fxxx_id = t1.fxxx_id
+   and t.fxxx_id = ?
+ order by t1.fxmx_id
+	]]></Sql>
+    <Description>查询风险明细表</Description>
+</SqlElement>
+<SqlElement key="SWD_FXTS_NSRJBXX">
+    <Sql><![CDATA[
+SELECT NSRSBH,NSRMC,t.hy_dm,B.HY_MC,t.SCJYDZ,t.nsr_swjg_dm,e.hydl_mc,t.FDDBRMC,a.cwfzrmc,a.HSFS_DM,
+       d.hsfsmc,a.sykjzd_dm,c.sykjzd_mc,a.cwfzr_dhhm,a.CWFZR_DYDZ,a.zcdz,a.zcd_yb
+  FROM syn_ctaiscx_dj_nsrxx    T,syn_ctaiscx_dj_nsrxx_kz a,syn_ctaiscx_DM_HY       B,
+       syn_ctaiscx_dm_sykjzd   c,syn_ctaiscx_dm_hsfs     d,Syn_Ctaiscx_Dm_Hydl     e
+ WHERE t.nsrdzdah = a.nsrdzdah
+   AND T.HY_DM = B.HY_DM
+   and substr(t.HY_dm, 0, 2) = e.hydl_dm
+   AND a.sykjzd_dm = c.sykjzd_dm
+   AND a.hsfs_dm = d.hsfs_dm
+   AND T.Nsrdzdah = ?
+	]]></Sql>
+    <Description>查询纳税人基本信息明细</Description>
+</SqlElement>
+<SqlElement key="SWD_UPD_FXXX_ZT">
+    <Sql><![CDATA[
+update tax_rate.wp_fx_fxxx t set t.zt_dm=? where t.fxxx_id = ?
+	]]></Sql>
+    <Description>税务端推送</Description>
+</SqlElement>
+<SqlElement key="SWD_UPD_FXXX_YDPC">
+    <Sql><![CDATA[
+update tax_rate.wp_fx_fxxx t set t.ydpcyy=? where t.fxxx_id = ?
+	]]></Sql>
+    <Description>税务端疑点排除</Description>
+</SqlElement>
+<SqlElement key="SWD_UPD_TSSJ">
+    <Sql><![CDATA[
+update tax_rate.wp_fx_fxxx t set t.tssj = sysdate where t.fxxx_id = ?
+	]]></Sql>
+    <Description>推送更新推送时间</Description>
+</SqlElement>
+<SqlElement key="NSRD_UPD_FKSJ">
+    <Sql><![CDATA[
+update tax_rate.wp_fx_fxxx t set t.fksj = sysdate where t.fxxx_id = ?
+	]]></Sql>
+    <Description>推送更新反馈时间</Description>
+</SqlElement>
+<SqlElement key="SWD_INS_FXXX_CZJL">
+    <Sql><![CDATA[
+INSERT INTO tax_rate.wp_fx_czjl (czjs_id,fxxx_id,CZSJ,CZQD,ZTLX_DM,CZCS) VALUES (sys_guid(),?,SYSDATE,'1',?,?)
+	]]></Sql>
+    <Description>税务端推送</Description>
+</SqlElement>
+<SqlElement key="NSRD_GETYZXX_SBTZ">
+    <Sql><![CDATA[
+select a.zsuuid,to_char(a.yzpzxh) yzpzxh,a.yzpzmxxh,a.nssbrq,a.czlx_dm,a.sbsx_dm_1,a.ybtse,a.hy_dm,a.zsxm_dm,d.ZSXM_MC,a.zspm_dm,e.ZSPM_MC,a.skssqq,a.skssqz,
+       a.djzclx_dm,a.zsfs_dm,a.skssswjg_dm,a.zgswskfj_dm,a.zsswjg_dm,a.rkrq,to_char(b.dzsphm) dzsphm,b.dzspmxxh,b.pzzl_dm,b.pzzg_dm,b.pzhm,b.sjje
+  from syn_hxcx_zs_yjsf a,
+       (select t.spuuid,t.zsuuid,t.djxh,t.dzsphm,t.dzspmxxh,t.pzzl_dm,t.pzzg_dm,t.pzhm,sjje from syn_hxcx_zs_jks t where t.tzlx_dm in ('1','4')
+        union
+        select t.spuuid,t.zsuuid,t.djxh,t.dzsphm,t.dzspmxxh,t.pzzl_dm,t.pzzg_dm,t.pzhm,sjje from syn_hxcx_zs_wsz t where t.tzlx_dm in ('1','4')) b, 
+        tax_rate.wp_fx_fxxx c,
+        SYN_CTAISCX_DM_ZSXM d,
+        SYN_CTAISCX_DM_ZSPM e,
+        SYN_HXCX_SB_SBXX f
+ where a.zsuuid = b.zsuuid
+   and a.zsxm_dm = d.ZSXM_DM
+   and a.zspm_dm = e.ZSPM_DM
+   and (f.gzlx_dm_1='5' or a.sbsx_dm_1 = '21')
+   and a.yzpzxh=f.pzxh
+   and a.tzlx_dm in ('1','4')
+   and a.nssbrq > c.scsj
+   and c.nsrdzdah = a.djxh
+   and c.fxxx_id = ?
+	]]></Sql>
+    <Description>获取应征主体信息进行申报调整</Description>
+</SqlElement>
+<SqlElement key="NSRD_GETYZXX_WSBTZ">
+    <Sql><![CDATA[
+select a.zsuuid,to_char(a.yzpzxh) yzpzxh,a.yzpzmxxh,a.nssbrq,a.czlx_dm,a.sbsx_dm_1,a.ybtse,a.hy_dm,a.zsxm_dm,d.ZSXM_MC,a.zspm_dm,e.ZSPM_MC,a.skssqq,a.skssqz,
+       a.djzclx_dm,a.zsfs_dm,a.skssswjg_dm,a.zgswskfj_dm,a.zsswjg_dm,a.rkrq,to_char(b.dzsphm) dzsphm,b.dzspmxxh,b.pzzl_dm,b.pzzg_dm,b.pzhm,b.sjje
+  from syn_hxcx_zs_yjsf a,
+       (select t.spuuid,t.zsuuid,t.djxh,t.dzsphm,t.dzspmxxh,t.pzzl_dm,t.pzzg_dm,t.pzhm,sjje from syn_hxcx_zs_jks t where t.tzlx_dm in ('1','4')
+        union
+        select t.spuuid,t.zsuuid,t.djxh,t.dzsphm,t.dzspmxxh,t.pzzl_dm,t.pzzg_dm,t.pzhm,sjje from syn_hxcx_zs_wsz t where t.tzlx_dm in ('1','4')) b, 
+        tax_rate.wp_fx_fxxx c,
+        SYN_CTAISCX_DM_ZSXM d,
+        SYN_CTAISCX_DM_ZSPM e,
+        SYN_HXCX_SB_SBXX f
+ where a.zsuuid = b.zsuuid
+   and a.zsxm_dm = d.ZSXM_DM
+   and a.zspm_dm = e.ZSPM_DM
+   and (f.gzlx_dm_1='5' or a.sbsx_dm_1 = '21')
+   and a.yzpzxh=f.pzxh
+   and a.tzlx_dm in ('1','4')
+   and a.ybtse = '0'
+   and a.nssbrq > c.scsj 
+   and c.nsrdzdah = a.djxh
+   and c.fxxx_id = ?
+	]]></Sql>
+    <Description>获取应征主体信息未进行申报调整</Description>
+</SqlElement>
+<SqlElement key="SWD_GETCBQK">
+    <Sql><![CDATA[
+select t.*,t2.ZSXM_MC,t.zsxm_dm,t3.ZSPM_MC,t.zspm_dm from syn_hxcx_zs_yjsf t,(
+select distinct t2.yzpzxh, t2.dzsphm
+  from tax_rate.wp_fx_fxxx t,
+       tax_rate.wp_fx_fkxx t1,
+       tax_rate.wp_fx_fkmx t2
+ where t.fxxx_id = t1.fxxx_id
+   and t1.fkxx_id = t2.fkxx_id
+   and t.fxxx_id = ? ) t1,
+   SYN_CTAISCX_DM_ZSXM t2,
+   SYN_CTAISCX_DM_ZSPM t3
+   where t.yzpzxh = t1.yzpzxh
+   and t.zsxm_dm=t2.ZSXM_DM 
+   and t.zspm_dm=t3.ZSPM_DM
+	]]></Sql>
+    <Description>查补情况查询</Description>
+</SqlElement>
+<SqlElement key="SWD_GETRKQK">
+    <Sql><![CDATA[
+select t.*,d.ZSXM_MC,e.ZSPM_MC from (
+select max((case when t.rksk<>0 then t.zsuuid end)) zsuuid,max(t.yzpzxh) yzpzxh,max(t.dzsphm) dzsphm,max((case when instr('9901,9902', substr(t.zspm_dm, length(t.zspm_dm) - 3)) > 0 then '' else t.zspm_dm end)) zspm_dm,max(t.zsxm_dm) zsxm_dm,
+       max(t.skssqq) skssqq,max(t.skssqz) skssqz,sum(t.rksk) rksk,sum(t.rkznj) rkznj,sum(t.rkfk) rkfk,max(t.rkrq) rkrq
+  from (select distinct a.zsuuid,to_char(a.yzpzxh) yzpzxh,a.nssbrq,a.sbsx_dm_1,a.hy_dm,a.zsxm_dm,a.zspm_dm,a.skssqq,a.skssqz,a.djzclx_dm,a.zsfs_dm,a.skssswjg_dm,a.zgswskfj_dm,a.zsswjg_dm,
+                        a.rkrq,to_char(b.dzsphm) dzsphm,b.pzzl_dm,b.pzzg_dm,b.pzhm,b.sjje,
+                        (case when instr('9901,9902',substr(a.zspm_dm, length(a.zspm_dm) - 3)) = 0 then a.ybtse else 0 end) rksk,
+                        (case when instr('9901',substr(a.zspm_dm, length(a.zspm_dm) - 3)) > 0 then a.ybtse else 0 end) rkznj,
+                        (case when instr('9902',substr(a.zspm_dm, length(a.zspm_dm) - 3)) > 0 then a.ybtse else 0 end) rkfk
+          from syn_hxcx_zs_yjsf a, (select t.spuuid,t.zsuuid,t.djxh,t.dzsphm,t.dzspmxxh,t.pzzl_dm,t.pzzg_dm,t.pzhm,sjje
+                  from syn_hxcx_zs_jks t
+                 where t.tzlx_dm in ('1', '4')
+                union
+                select t.spuuid,t.zsuuid,t.djxh,t.dzsphm,t.dzspmxxh,t.pzzl_dm,t.pzzg_dm,t.pzhm,sjje
+                  from syn_hxcx_zs_wsz t
+                 where t.tzlx_dm in ('1', '4')) b,
+(select distinct t.nsrdzdah,t.scsj,t2.yzpzxh,t2.dzsphm from tax_rate.wp_fx_fxxx t,tax_rate.wp_fx_fkxx t1,tax_rate.wp_fx_fkmx t2 where t.fxxx_id=t1.fxxx_id and t1.fkxx_id=t2.fkxx_id and t.fxxx_id= ? ) c,
+               SYN_HXCX_SB_SBXX g
+         where a.zsuuid = b.zsuuid
+           and c.yzpzxh = a.yzpzxh
+           and c.dzsphm = b.dzsphm
+           and a.tzlx_dm in ('1', '4')
+           and (g.gzlx_dm_1='5' or a.sbsx_dm_1 = '21')
+           and a.yzpzxh=g.pzxh
+           and a.nssbrq > c.scsj ) t ) t,SYN_CTAISCX_DM_ZSXM d,
+               SYN_CTAISCX_DM_ZSPM e
+               where t.zsxm_dm = d.ZSXM_DM
+                 and t.zspm_dm = e.ZSPM_DM
+	]]></Sql>
+    <Description>入库情况查询</Description>
+</SqlElement>
+<SqlElement key="NSRD_FXXX_FXXXQC">
+    <Sql><![CDATA[
+select t.*,t1.*
+  from tax_rate.wp_fx_fxxx t,tax_rate.wp_fx_zt t1
+ where t.nsrdzdah = ?
+   and t.zt_dm not in ('0', '13')
+   and t.zt_dm = t1.id
+   order by t.zt_dm
+	]]></Sql>
+    <Description>加载风险信息清册</Description>
+</SqlElement>
+<SqlElement key="NSRD_FXXX_YBSSFXTSB">
+    <Sql><![CDATA[
+select t.*,t1.*
+ from tax_rate.wp_fx_fxxx t,tax_rate.wp_fx_fxmx t1
+where t.fxxx_id = ?
+  and t.fxxx_id = t1.fxxx_id
+  order by t1.fxmx_id
+	]]></Sql>
+    <Description>加载一般税收风险提示信息表</Description>
+</SqlElement>
+<SqlElement key="NSRD_FXXX_YBSSFXTSB_LXDH">
+    <Sql><![CDATA[
+  select t.* from syn_hxcx_dm_gy_swry t where t.swry_dm = ?
+	]]></Sql>
+    <Description>加载一般税收风险提示信息表</Description>
+</SqlElement>
+<SqlElement key="Nsrfxfk_insert">
+<Sql>
+    <![CDATA[
+INSERT INTO TAX_RATE.WP_FX_FKXX (FKXX_ID, FXXX_ID, ZXGFCWHS, QT, ECFK, REPLY, REPLY_TYPE, REPLY_TIME,SJSK) VALUES (?,?,?,?,?,?,?,?,?)
+   ]]>
+</Sql>
+<Description>保存风险反馈主表信息</Description>
+</SqlElement>
+<SqlElement key="Nsrfxfkmx_insert">
+<Sql>
+    <![CDATA[
+insert into tax_rate.wp_fx_fkmx (fkmx_id, fkxx_id, yzpzxh, dzsphm) values (sys_guid(),?,?,?)
+   ]]>
+</Sql>
+<Description>保存风险反馈明细表信息</Description>
+</SqlElement>
+<SqlElement key="NSRD_CFTJ">
+    <Sql><![CDATA[
+select t.zt_dm from tax_rate.wp_fx_fxxx t where t.fxxx_id = ?
+	]]></Sql>
+    <Description>查询该风险是否反馈，解决重复提交问题</Description>
+</SqlElement>
+<SqlElement key="Nsrfxfksh_update">
+    <Sql><![CDATA[
+UPDATE TAX_RATE.WP_FX_FKXX T
+   SET T.SHSJ = ?,
+   		T.SHJG = ?,
+   		T.SHYJ = ?,
+   		T.ZZS_XXSE  = ?,
+       T.ZZS_JXSEZC  = ?,
+       T.ZZS_YSSECWTZ  = ?,
+       T.ZZS_XJ = ?,
+       T.ZZS_CJLD  = ?,
+       T.XFS_YSXSE  = ?,
+       T.QS_SDE  = ?,
+       T.QS_KMBKS  = ?,
+       T.QS_YNSSDE  = ?,
+       T.QS_YNSDSE  = ?,
+       T.QS_DJSE  = ?,
+       T.QS_FJMQYRKSDS  = ?,
+       T.YWWT_BZ = ?,
+       T.BZCXW_DM = ?,
+       T.SHHXCZ = ?
+ WHERE T.FXXX_ID = ?
+ AND T.SHSJ IS NULL
+	]]></Sql>
+    <Description>查询该风险是否反馈，解决重复提交问题</Description>
+</SqlElement>
+<SqlElement key="NSRD_SHYJ">
+    <Sql><![CDATA[
+select * from (select t.shyj,t.reply from tax_rate.wp_fx_fkxx t,tax_rate.wp_fx_fxxx t1 where t.fxxx_id=t1.fxxx_id and t1.fxxx_id = ? order by t.ecfk desc)where rownum=1
+	]]></Sql>
+    <Description>查询税务人员审核意见</Description>
+</SqlElement>
+<SqlElement key="GETFTP_ID_FXTS">
+    <Sql><![CDATA[
+  SELECT t.id FROM T_SP_FTPPATH t WHERE  t.upfilename=? 
+	]]></Sql>
+    <Description>查询附送资料ID</Description>
+</SqlElement>
+<SqlElement key="GETFXTS_FJ_CX">
+    <Sql><![CDATA[
+			select fkfj_id id,
+				fkxx_id zbid,
+	            'application/octet-stream' filetype,
+	            substr(fjmc, instr(fjmc, '.'), length(fjmc)) lastfilename,
+	            wjmc upfilename,
+	            '101' type_dm,
+	            fjmc filename,
+	            wjdz path,
+	            lrsj cjsj
+	       from tax_rate.wp_fx_fkfj
+	      where fkxx_id = ?
+	]]></Sql>
+    <Description>查看上传的附送资料</Description>
+</SqlElement>
+<SqlElement key="GETFXTS_FJ_XZ">
+    <Sql><![CDATA[
+			select fkfj_id ,
+				fkxx_id ,
+	            'application/octet-stream' filetype,
+	            substr(fjmc, instr(fjmc, '.'), length(fjmc)) lastfilename,
+	            wjmc upfilename,
+	            '101' type_dm,
+	            fjmc filename,
+	            wjdz path,
+	            lrsj cjsj,
+	            swjg_dm
+	       from tax_rate.wp_fx_fkfj
+	      where fkfj_id = ?
+	      and fkxx_id = ?
+	]]></Sql>
+    <Description>查看上传的附送资料下载</Description>
+</SqlElement>
+<SqlElement key="DEL_ID_BY_FKFJID">
+    <Sql><![CDATA[
+			select fkfj_id id,
+				fkxx_id zbid,
+	            'application/octet-stream' filetype,
+	            substr(fjmc, instr(fjmc, '.'), length(fjmc)) lastfilename,
+	            wjmc upfilename,
+	            '101' type_dm,
+	            fjmc filename,
+	            wjdz path,
+	            lrsj cjsj
+	       from tax_rate.wp_fx_fkfj
+	      where fkfj_id = ?
+	]]></Sql>
+    <Description>删除附送资料</Description>
+</SqlElement>
+<SqlElement key="DEL_ID_FXTS">
+    <Sql><![CDATA[
+delete from tax_rate.wp_fx_fkfj where fkfj_id=?
+	]]></Sql>
+    <Description>删除附送资料</Description>
+</SqlElement>
+<SqlElement key="INSERT_FJ">
+    <Sql><![CDATA[
+		insert into tax_rate.wp_fx_fkfj (fkfj_id,fkxx_id,fjmc,wjmc,wjdz,swjg_dm,convert_type,czqd) values (sys_guid(),?,?,?,?,?,?,?)
+	]]></Sql>
+    <Description>插入附件</Description>
+</SqlElement>
+<SqlElement key="TJCX">
+    <Sql><![CDATA[
+select t.ydczry_mc,t1.fxs,t2.ytss,t3.wtss,t4.yyds,t5.wyds,t6.yfks,t7.wfks,t8.shtgs,t9.shwtgs from 
+(select t.ydczry_mc from tax_rate.wp_fx_fxxx t where t.ydczry_dm like '%' || ? || '%' and rownum=1 ) t,
+(select count(1) fxs from tax_rate.wp_fx_fxxx t where t.ydczry_dm like '%' || ? || '%' ) t1,
+(select count(1) ytss from tax_rate.wp_fx_fxxx t where t.zt_dm <> '0' and t.ydczry_dm like '%' || ? || '%' ) t2,
+(select count(1) wtss from tax_rate.wp_fx_fxxx t where t.zt_dm = '0' and t.ydczry_dm like '%' || ? || '%' ) t3,
+(select count(1) yyds from tax_rate.wp_fx_fxxx t where t.zt_dm not in ('2','7') and t.ydczry_dm like '%' || ? || '%' ) t4,
+(select count(1) wyds from tax_rate.wp_fx_fxxx t where t.zt_dm in ('2','7') and t.ydczry_dm like '%' || ? || '%' ) t5,
+(select count(1) yfks from tax_rate.wp_fx_fxxx t where t.zt_dm in ('4','9') and t.ydczry_dm like '%' || ? || '%' ) t6,
+(select count(1) wfks from tax_rate.wp_fx_fxxx t where t.zt_dm in ('3','8') and t.ydczry_dm like '%' || ? || '%' ) t7,
+(select count(1) shtgs from tax_rate.wp_fx_fxxx t where t.zt_dm in ('5','10') and t.ydczry_dm like '%' || ? || '%' ) t8,
+(select count(1) shwtgs from tax_rate.wp_fx_fxxx t where t.zt_dm = '11' and t.ydczry_dm like '%' || ? || '%' ) t9
+	]]></Sql>
+    <Description>统计查询</Description>
+</SqlElement>
+<SqlElement key="SWD_FXSH_FXFKZB">
+    <Sql><![CDATA[
+ select t1.*, t2.*
+   from (select *
+           from tax_rate.wp_fx_fkxx t
+          where t.fxxx_id = ?
+          order by t.ecfk desc) t1,
+        tax_rate.wp_fx_fxxx t2
+  where t1.fxxx_id = t2.fxxx_id
+    and rownum < 2
+	]]></Sql>
+    <Description>查询风险反馈主表</Description>
+</SqlElement>
+<SqlElement key="SWD_FXSH_FXFKYDZB">
+    <Sql><![CDATA[
+select t.* from tax_rate.wp_fx_fxmx t where t.fxxx_id = ? order by t.fxmx_id
+	]]></Sql>
+    <Description>查询应对指标</Description>
+</SqlElement>
+<SqlElement key="NSRD_FXSH_FXFKYDZB">
+    <Sql><![CDATA[
+select t.* from tax_rate.wp_fx_fxmx t where t.fxmx_id = ?
+	]]></Sql>
+    <Description>查询应对指标</Description>
+</SqlElement>
+<SqlElement key="SWD_DMB_WTDL">
+    <Sql><![CDATA[
+select t.* from TAX_RATE.WP_FX_WTDL t where t.yxbz='Y'  order by t.sswt_dm 
+	]]></Sql>
+    <Description>涉税问题分析代码表</Description>
+</SqlElement>
+<SqlElement key="SWD_DMB_FXSX">
+    <Sql><![CDATA[
+SELECT T.* FROM TAX_RATE.WP_FX_FXD T WHERE T.YXBZ='Y'
+	]]></Sql>
+    <Description>风险事项分析代码表</Description>
+</SqlElement>
+<SqlElement key="SWD_DMB_FXD">
+    <Sql><![CDATA[
+SELECT T.* FROM TAX_RATE.WP_FX_FXD T WHERE T.YXBZ='Y' AND T.FXSX_DM = ?
+	]]></Sql>
+    <Description>根据风险事项获取风险点</Description>
+</SqlElement>
+<SqlElement key="CX_FB1_SFBC">
+    <Sql><![CDATA[
+SELECT COUNT(1) FROM TAX_RATE.WP_FX_FXSXFXB T WHERE T.FXXX_ID = ?
+	]]></Sql>
+    <Description>查询附表1是否保存</Description>
+</SqlElement>
+<SqlElement key="DEL_FB1_SFBC">
+    <Sql><![CDATA[
+DELETE TAX_RATE.WP_FX_FXSXFXB T WHERE T.FXXX_ID = ?
+	]]></Sql>
+    <Description>查询附表1是否保存</Description>
+</SqlElement>
+<SqlElement key="INSERT_FB1">
+    <Sql><![CDATA[
+INSERT INTO TAX_RATE.WP_FX_FXSXFXB (FXSXFXID, FXD_DM, FXSX_DM, FXD_NR, CBSK, ZZS, XFS, QYSDS, CLGZS, QTSS, TJLDSE, MBKSJE, ZNJ, FK, FXXX_ID)
+VALUES (SYS_GUID(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+	]]></Sql>
+    <Description>保存附表1</Description>
+</SqlElement>
+<SqlElement key="CX_FB2_SFBC">
+    <Sql><![CDATA[
+SELECT COUNT(1) FROM TAX_RATE.WP_FX_SSWTFXB T WHERE T.FXXX_ID = ?
+	]]></Sql>
+    <Description>查询附表2是否保存</Description>
+</SqlElement>
+<SqlElement key="DEL_FB2_SFBC">
+    <Sql><![CDATA[
+DELETE TAX_RATE.WP_FX_SSWTFXB T WHERE T.FXXX_ID = ?
+	]]></Sql>
+    <Description>查询附表2是否保存</Description>
+</SqlElement>
+<SqlElement key="INSERT_FB2">
+    <Sql><![CDATA[
+INSERT INTO TAX_RATE.WP_FX_SSWTFXB (SSWTFXID, SSWT_DM, JE, SE, YJZB, FXXX_ID)
+VALUES (SYS_GUID(), ?, ?, ?, ?, ?)
+	]]></Sql>
+    <Description>保存附表2</Description>
+</SqlElement>
+<SqlElement key="SEND_TOHXZG">
+    <Sql><![CDATA[
+select t.* from tax_rate.wp_fx_fxxx t where t.fxxx_id = ?
+	]]></Sql>
+    <Description>送入2包查询风险数据</Description>
+</SqlElement>
+<SqlElement key="CX_FXMXMX">
+    <Sql><![CDATA[
+select t.* from tax_rate.wp_fxmx_mx_mx t where t.fxxxxh = ? order by t.fxxx_mxbh
+	]]></Sql>
+    <Description>查询风险模型明细</Description>
+</SqlElement>
+<SqlElement key="CX_FXSXFXB">
+    <Sql><![CDATA[
+select t.* from tax_rate.wp_fx_fxsxfxb t where t.fxxx_id = ?
+	]]></Sql>
+    <Description>查询风险事项分析表</Description>
+</SqlElement>
+<SqlElement key="CX_SSWTFXB">
+    <Sql><![CDATA[
+select t.* from tax_rate.wp_fx_sswtfxb t where t.fxxx_id = ?
+	]]></Sql>
+    <Description>查询涉税问题分析表</Description>
+</SqlElement>
+<SqlElement key="INSERT_YZXX">
+    <Sql><![CDATA[
+ INSERT INTO TAX_RATE.WP_FX_YZXX (FKXX_ID,ZSXM,ZSPM,YBSK,SSSJQ,SSSJZ,YZPZXH,DZSPHM,RKSK,RKZNJ,RKFK,RKRQ,SKLX) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)
+	]]></Sql>
+    <Description>保存应征信息</Description>
+</SqlElement>
+<SqlElement key="GET_YZXX">
+    <Sql><![CDATA[
+ SELECT * FROM TAX_RATE.WP_FX_YZXX T WHERE T.FKXX_ID = ?
+	]]></Sql>
+    <Description>保存应征信息</Description>
+</SqlElement>
+<SqlElement key="UP_XXTBZT">
+    <Sql><![CDATA[
+ UPDATE TAX_RATE.WP_FX_FXXX T SET T.XXTB_ZT = '1' WHERE T.FXXX_ID = ?
+	]]></Sql>
+    <Description>推送2包后更新信息同步状态</Description>
+</SqlElement>
+<SqlElement key="insert_fxts_srscxml">
+    <Sql><![CDATA[
+insert into FXTS_SRSCXML (FXXX_ID, NSRDZDAH, NSRSBH, INXML, OUTXML, BZ) values (?, ?, ?, ?, ?, '0')
+	]]></Sql>
+    <Description>推送2包后更新信息同步状态</Description>
+</SqlElement>
+<SqlElement key="INSERT_YWWT_MX">
+    <Sql><![CDATA[
+update tax_rate.wp_fxmx_mx_mx t set t.mxywwt=?,t.qksm=? where t.fxxx_mxbh=?
+	]]></Sql>
+    <Description>审核模型有无问题</Description>
+</SqlElement>
+<SqlElement key="INSERT_YWWT_ZB">
+    <Sql><![CDATA[
+  update tax_rate.wp_fx_fxmx t set t.sjywwt=?,t.qksm=? where t.fxmx_id=?
+	]]></Sql>
+    <Description>审核指标有无问题</Description>
+</SqlElement>
+<SqlElement key="SENDTO_HXZG_KG">
+    <Sql><![CDATA[
+select t.mc from wssp.bst_dm_kg t where t.dm='0000000002'
+	]]></Sql>
+    <Description>设置送入2包地址开关用于试点测试</Description>
+</SqlElement>
+<SqlElement key="UP_SHRY_FXTS">
+    <Sql><![CDATA[
+ UPDATE TAX_RATE.WP_FX_FXXX T
+    SET T.SHRY_DM = ?
+  WHERE T.FXXX_ID = ?
+	]]></Sql>
+    <Description>保存审核人员</Description>
+</SqlElement>
+<SqlElement key="FXTS_TJCX">
+    <Sql><![CDATA[
+select count(distinct(t.fxxx_id)) fxs,
+       count(case when t.zt_dm = '1' then 1 else null end) ydpc,
+       count(case when t.zt_dm = '0' then 1 else null end) wts,
+       count(case when t.zt_dm = '2' then 1 else null end) wyd,
+       count(case when t.zt_dm = '3' then 1 else null end) wfk,
+       count(case when t.zt_dm = '4' then 1 else null end) wsh,
+       count(case when t.zt_dm = '5' then 1 else null end) sctg,
+       count(case when t1.ecfk = '0' and t1.ywwt_bz = '1' then 1 else null end) ywt,
+       count(case when t1.ecfk = '0' and t1.ywwt_bz = '0' then 1 else null end) wwt,
+       count(case when t.zt_dm = '7' then 1 else null end) wyd2,
+       count(case when t.zt_dm = '8' then 1 else null end) wfk2,
+       count(case when t.zt_dm = '9' then 1 else null end) wsh2,
+       count(case when t.zt_dm = '10' then 1 else null end) shtg2,
+       count(case when t1.ecfk = '1' and t1.ywwt_bz = '1' then 1 else null end) ywt2,
+       count(case when t1.ecfk = '1' and t1.ywwt_bz = '0' then 1 else null end) wwt2,
+       count(case when t.zt_dm in ('6','11') then 1 else null end) zhxcl
+  from tax_rate.wp_fx_fxxx t, tax_rate.wp_fx_fkxx t1
+  where t.fxxx_id=t1.fxxx_id(+)
+  and substr(t.jsjg_dm,0,?)=?
+	]]></Sql>
+    <Description>统计查询</Description>
+</SqlElement>
+<SqlElement key="FXTS_TJCX_BYSWJG_SJ">
+    <Sql><![CDATA[
+select distinct t2.swjg_dm,t2.swjgmc,
+	   count(case when t.zt_dm ='0' then 1 else null end) wts,
+       count(case when t.zt_dm in ('2','7') then 1 else null end) wyd,
+       count(case when t.zt_dm in ('3','8') then 1 else null end) wfk,
+       count(case when t.zt_dm in ('4','9') then 1 else null end) wsh,
+       count(case when t.zt_dm in ('5','10') then 1 else null end) shtg,
+       count(case when t.zt_dm in ('6','11') then 1 else null end) zhxcl
+  from tax_rate.wp_fx_fxxx t, syn_hxcx_dm_gy_swjg t2
+  where substr(t.jsjg_dm,0,5)||'000000' = t2.swjg_dm
+  and t2.sjswjg_dm='14200000000'
+  group by t2.swjg_dm,t2.swjgmc
+  union
+  select distinct t2.swjg_dm,t2.swjgmc,
+	   count(case when t.zt_dm ='0' then 1 else null end) wts,
+       count(case when t.zt_dm in ('2','7') then 1 else null end) wyd,
+       count(case when t.zt_dm in ('3','8') then 1 else null end) wfk,
+       count(case when t.zt_dm in ('4','9') then 1 else null end) wsh,
+       count(case when t.zt_dm in ('5','10') then 1 else null end) shtg,
+       count(case when t.zt_dm in ('6','11') then 1 else null end) zhxcl
+  from tax_rate.wp_fx_fxxx t, syn_hxcx_dm_gy_swjg t2
+  where substr(t.jsjg_dm,0,7)||'0000' = t2.swjg_dm
+  and t2.sjswjg_dm='14200000000'
+  group by t2.swjg_dm,t2.swjgmc
+	]]></Sql>
+    <Description>统计查询BY省级税务机关</Description>
+</SqlElement>
+<SqlElement key="FXTS_TJCX_BYSWJG">
+    <Sql><![CDATA[
+select distinct t2.swjg_dm,t2.swjgmc,
+	   count(case when t.zt_dm ='0' then 1 else null end) wts,
+       count(case when t.zt_dm in ('2','7') then 1 else null end) wyd,
+       count(case when t.zt_dm in ('3','8') then 1 else null end) wfk,
+       count(case when t.zt_dm in ('4','9') then 1 else null end) wsh,
+       count(case when t.zt_dm in ('5','10') then 1 else null end) shtg,
+       count(case when t.zt_dm in ('6','11') then 1 else null end) zhxcl
+  from tax_rate.wp_fx_fxxx t,syn_hxcx_dm_gy_swjg t2
+  where substr(t.jsjg_dm,0,?)||? = t2.swjg_dm
+  and t2.sjswjg_dm=?
+  group by t2.swjg_dm,t2.swjgmc
+	]]></Sql>
+    <Description>统计查询BY税务机关</Description>
+</SqlElement>
+<SqlElement key="FXTS_TJCX_GET_JGJC">
+    <Sql><![CDATA[
+select t.jgjc_dm
+  from syn_hxcx_dm_gy_swjg t
+ where t.swjg_dm =
+       (select t.sjswjg_dm from syn_hxcx_dm_gy_swjg t where t.swjg_dm = ? )
+	]]></Sql>
+    <Description>统计查询</Description>
+</SqlElement>
+<SqlElement key="NSRD_FXTS_FJJL">
+    <Sql><![CDATA[
+select t.fkfj_id from tax_rate.wp_fx_fkfj t where t.fkxx_id = ?
+	]]></Sql>
+    <Description>统计查询</Description>
+</SqlElement>
+<SqlElement key="FXTS_TJCX_MX">
+    <Sql><![CDATA[
+	select t.*,t1.name
+    from tax_rate.wp_fx_fxxx t,
+         tax_rate.wp_fx_zt   t1
+   where t.jsjg_dm = ?
+     and t.zt_dm = t1.id
+     and t.zt_dm in (?,?)
+	]]></Sql>
+    <Description>区县级查看各分局明细</Description>
+</SqlElement>
+<SqlElement key="DEL_YZXX">
+    <Sql><![CDATA[
+	delete from tax_rate.Wp_Fx_Yzxx t where t.fkxx_id = ?
+	]]></Sql>
+    <Description>保存应征信息前先删除</Description>
+</SqlElement>
+</root>

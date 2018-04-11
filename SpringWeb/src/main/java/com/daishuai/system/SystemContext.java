@@ -42,10 +42,15 @@ public class SystemContext {
                     Iterator iter = sqlElement.elementIterator();
                     String sql = sqlElement.element("Sql").getText().trim();
                     String description = sqlElement.element("Description").getText();
+                    if(sqlMap.containsKey(key)){
+                        throw new Exception("存在重复的key：" + key);
+                    }
                     sqlMap.put(key, sql);
-                    logger.info("初始化sql配置【key = " + key + "，sql = " + sql + ",description = " + description + "】");
+                    logger.info("初始化sql配置(" + fileName + ")【key = " + key + ",description = " + description + "】");
                 }
             } catch (DocumentException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

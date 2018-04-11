@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE root SYSTEM "sql.dtd">
+<root>
+    <SqlElement key="GT3_GY_XQYZCFZB_CSH">
+        <Sql><![CDATA[
+			    select * from elecd01_lj where nsrsbh = ? and sssq=?
+				]]></Sql>
+        <Description>小企业资产负债表</Description>
+    </SqlElement>
+    <SqlElement key="GT3_GY_XQYLRB_CSH">
+        <Sql><![CDATA[
+			    select * from elecd27_lj where nsrsbh = ? and sssq=?
+				]]></Sql>
+        <Description>小企业利润表</Description>
+    </SqlElement>
+
+    <SqlElement key="GT3_GY_XQYLRBFPB_CSH">
+        <Sql><![CDATA[
+			    select * from elecd25_lj where nsrsbh = ? and sssq=?
+				]]></Sql>
+        <Description>小企业利润分配表</Description>
+    </SqlElement>
+
+
+    <SqlElement key="GT3_GY_XQYXJLLB_CSH">
+        <Sql><![CDATA[
+			    select * from elecd03_lj where nsrsbh = ? and sssq=?
+				]]></Sql>
+        <Description>小企业现金流量表</Description>
+    </SqlElement>
+
+    <SqlElement key="GT3_GY_YBQYZCFZB_CSH">
+        <Sql><![CDATA[
+			    select * from elecd05_lj where nsrsbh = ? and sssq=?
+				]]></Sql>
+        <Description>一般企业资产负债表</Description>
+    </SqlElement>
+
+
+    <SqlElement key="GT3_GY_YBQYLRB_CSH">
+        <Sql><![CDATA[
+			    select * from elecd07_lj where nsrsbh = ? and sssq=?
+				]]></Sql>
+        <Description>一般企利润表</Description>
+    </SqlElement>
+
+    <SqlElement key="GT3_GY_ZJGSZCFZB_CSH">
+        <Sql><![CDATA[
+			    select * from elecd13_lj where nsrsbh = ? and sssq=?
+				]]></Sql>
+        <Description>证劵公司资产负债表</Description>
+    </SqlElement>
+
+    <SqlElement key="GT3_GY_ZJGSLRB_CSH">
+        <Sql><![CDATA[
+			    select * from elecd15_lj where nsrsbh = ? and sssq=?
+				]]></Sql>
+        <Description>证劵公司利润表</Description>
+    </SqlElement>
+
+    <SqlElement key="GT3_GY_QYKJZDLRB_CSH">
+        <Sql><![CDATA[
+			    select * from elecd11_lj where nsrsbh = ? and sssq=?
+				]]></Sql>
+        <Description>企业会计制度利润表</Description>
+    </SqlElement>
+
+
+    <SqlElement key="GT3_GY_QYKJZDZCFZB_CSH">
+        <Sql><![CDATA[
+			    select * from elecd09_lj where nsrsbh = ? and sssq=?
+				]]></Sql>
+        <Description>企业会计制度资产负债表</Description>
+    </SqlElement>
+
+
+    <SqlElement key="GT3_GY_BXGSZCFZB_CSH">
+        <Sql><![CDATA[
+			    select * from elecd17_lj where nsrsbh = ? and sssq=?
+				]]></Sql>
+        <Description>保险公司制度资产负债表</Description>
+    </SqlElement>
+
+    <SqlElement key="GT3_GY_BXGSLRFPB_CSH">
+        <Sql><![CDATA[
+			    select * from elecd19_lj where nsrsbh = ? and sssq=?
+				]]></Sql>
+        <Description>保险公司制度利润表</Description>
+    </SqlElement>
+
+
+    <SqlElement key="GT3_GY_DBGSZCFZB_CSH">
+        <Sql><![CDATA[
+			    select * from elecd21_lj where nsrsbh = ? and sssq=?
+				]]></Sql>
+        <Description>担保企业会计制度资产负债表</Description>
+    </SqlElement>
+
+
+    <SqlElement key="GT3_GY_DBGSLRB_CSH">
+        <Sql><![CDATA[
+			    select * from elecd23_lj where nsrsbh = ? and sssq=?
+				]]></Sql>
+        <Description>担保企业会计制度资产负债表</Description>
+    </SqlElement>
+
+    <SqlElement key="GT3_GY_SYDWSRZCB_CSH">
+        <Sql><![CDATA[
+			    select * from elecd31_lj where nsrsbh = ? and sssq=?
+				]]></Sql>
+        <Description>事业单位会计会计报表收入支出</Description>
+    </SqlElement>
+
+    <SqlElement key="GT3_GY_SYDWZCFZB_CSH">
+        <Sql><![CDATA[
+			    select * from elecd29_lj where nsrsbh = ? and sssq=?
+				]]></Sql>
+        <Description>事业单位会计会计报表资产负债表</Description>
+    </SqlElement>
+
+    <SqlElement key="GT3_GY_MJFYLZCFZB_CSH">
+        <Sql><![CDATA[
+			    select * from elecd33_lj where nsrsbh = ? and sssq=?
+				]]></Sql>
+        <Description>事业单位会计会计报表资产负债表</Description>
+    </SqlElement>
+
+    <SqlElement key="GT3_GY_MJFYLYWHDB_CSH">
+        <Sql><![CDATA[
+			    select * from elecd35_lj where nsrsbh = ? and sssq=?
+				]]></Sql>
+        <Description>事业单位会计会计报表资产负债表</Description>
+    </SqlElement>
+
+    <SqlElement key="GT3_GY_YBQYXJLLB_CSH">
+        <Sql><![CDATA[
+			    select * from elecd37_lj where nsrsbh = ? and sssq=?
+				]]></Sql>
+        <Description>事业单位会计会计报表资产负债表</Description>
+    </SqlElement>
+</root>
