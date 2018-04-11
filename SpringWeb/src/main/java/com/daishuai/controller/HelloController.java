@@ -1,5 +1,7 @@
 package com.daishuai.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -12,9 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class HelloController {
+    @Autowired
+    private ApplicationContext context;
 
     @RequestMapping("/hello")
     public String hello() {
+
+        context.getBean("student");
+
         return "hello";
     }
 }

@@ -48,29 +48,35 @@ public class Student implements BeanNameAware, BeanFactoryAware, InitializingBea
 
     @Override
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+        logger.info("name =" + this.name);
         logger.info("调用BeanFactoryAware接口实现方法setBeanFactory()!!!!!!!!!");
     }
 
     @Override
     public void setBeanName(String s) {
+        logger.info("name =" + this.name);
         logger.info("调用BeanNameAware接口实现方法setBeanName()!!!!!!!!!");
     }
 
     @Override
     public void destroy() throws Exception {
+        logger.info("name =" + this.name);
         logger.info("调用DisposableBean接口实现方法destroy()!!!!!!!!!");
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
+        logger.info("name =" + this.name);
         logger.info("调用InitializingBean接口实现方法afterPropertiesSet()!!!!!!!!!");
     }
 
     public void initMethod(){
+        logger.info("name =" + this.name);
         logger.info("调用Student初始化方法initMethod()!!!!!!!!!");
     }
 
     public void destroyMethod(){
+        logger.info("name =" + this.name);
         logger.info("调用Student销毁方法destroyMethod()!!!!!!!!!");
     }
 }
