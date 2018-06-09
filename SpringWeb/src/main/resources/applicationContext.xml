@@ -11,7 +11,7 @@
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <bean id="student" class="com.daishuai.vo.Student" init-method="initMethod" destroy-method="destroyMethod" scope="prototype"/>
+    <bean id="student" class="com.daishuai.vo.Student" init-method="initMethod" destroy-method="destroyMethod"/>
 
     <bean id="customBeanPostProcessor" class="com.daishuai.aware.CustomBeanPostProcessor"/>
 

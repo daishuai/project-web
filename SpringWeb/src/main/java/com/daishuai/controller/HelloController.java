@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Copyright: Copyright (c) 2018
  */
 @Controller
+@RequestMapping("/hello")
 public class HelloController {
     @Autowired
     private ApplicationContext context;
@@ -24,6 +25,15 @@ public class HelloController {
 
     @RequestMapping("/hello")
     public String hello(Model model) {
+
+        context.getBean("student");
+        String sql = systemContext.getSqlByKey("QUERYT_NAME");
+        model.addAttribute("QUERYT_NAME", sql);
+        return "hello";
+    }
+
+    @RequestMapping("/index")
+    public String index(Model model) {
 
         context.getBean("student");
         String sql = systemContext.getSqlByKey("QUERYT_NAME");
