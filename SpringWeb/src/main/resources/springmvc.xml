@@ -10,11 +10,38 @@
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
-
-    <context:component-scan base-package="com.daishuai.controller"/>
+    
+    <!--注解配置-->
+    <!--<context:component-scan base-package="com.daishuai.controller"/>-->
+    
+    <!--非注解的映射器和适配器-->
+    <!--利用BeanNameUrlHandlerMapping来实现映射-->
+    <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+    
+    <bean name="/customHandler.do" class="com.daishuai.controller.CustomHandler">
+        <property name="systemContext" ref="systemContext"/>
+    </bean>
+    
+    <!--通过SimpleUrlHandlerMapping来实现映射器-->
+    <bean id="testController1" class="com.daishuai.controller.TestController1">
+        <constructor-arg name="systemContext" ref="systemContext"/>
+    </bean>
+    
+    <bean id="testController2" class="com.daishuai.controller.TestController2">
+        <constructor-arg name="systemContext" ref="systemContext"/>
+    </bean>
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/"></property>
         <property name="suffix" value=".jsp"></property>
+    </bean>
+    
+    <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                <prop key="/test1/hello">testController1</prop>
+                <prop key="/test2/hello">testController2</prop>
+            </props>
+        </property>
     </bean>
 </beans>

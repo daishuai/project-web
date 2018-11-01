@@ -27,6 +27,7 @@ public class Student implements BeanNameAware, BeanFactoryAware, InitializingBea
     }
 
     public void setName(String name) {
+        logger.info("调用Student类setName方法：name=" + name);
         this.name = name;
     }
 
@@ -48,6 +49,7 @@ public class Student implements BeanNameAware, BeanFactoryAware, InitializingBea
 
     @Override
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+
         logger.info("name =" + this.name);
         logger.info("调用BeanFactoryAware接口实现方法setBeanFactory()!!!!!!!!!");
     }

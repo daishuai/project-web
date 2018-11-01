@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Copyright: Copyright (c) 2018
  */
 @Controller
-@RequestMapping("/hello")
 public class HelloController {
     @Autowired
     private ApplicationContext context;
