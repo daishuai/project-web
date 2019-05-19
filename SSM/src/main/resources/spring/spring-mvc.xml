@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    
+    <!-- 扫描controller -->
+    <context:component-scan base-package="com.daishuai.ssm.controller" />
+    
+    <!-- Spring 来扫描指定包下的类，并注册被@Component，@Controller，@Service，@Repository等注解标记的组件 -->
+    <mvc:annotation-driven />
+    
+    <!-- 配置SpringMVC的视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+    
+    <import resource="applicationContext-bean.xml"/>
+    
+    <aop:config>
+        <aop:aspect ref="logAspect">
+            <!--定义切点-->
+            <aop:pointcut id="log" expression="execution(* com.daishuai.ssm.controller.*.* (..))"/>
+            <!--声明前置通知-->
+            <aop:before method="afterMethod" pointcut-ref="log"/>
+            <!--声明后置通知-->
+            <aop:after method="afterMethod" pointcut-ref="log"/>
+        </aop:aspect>
+    </aop:config>
+    
+</beans>
