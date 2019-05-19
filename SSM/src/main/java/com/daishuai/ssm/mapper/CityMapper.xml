@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.daishuai.ssm.mapper.CityMapper">   <!-- 命名空间，名字可以随意起，只要不冲突即可 -->
+    <!-- 对象映射，可以不写 -->
+    <!-- 自定义返回结果集 -->
+    <resultMap id="cityMap" type="com.daishuai.ssm.vo.City">
+        <id property="id" column="id" javaType="java.lang.Integer"></id>
+        <result property="name" column="name" javaType="java.lang.String"></result>
+        <result property="countryCode" column="countryCode" javaType="java.lang.String"></result>
+        <result property="district" column="district" javaType="java.lang.String"></result>
+        <result property="population" column="population" javaType="java.lang.Integer"></result>
+    </resultMap>
+    
+    <!-- 查询功能，resultType 设置返回值类型 -->
+    <select id="findAll" resultMap="cityMap">
+        SELECT * FROM city LIMIT #{start}, #{end}
+    </select>
+</mapper>

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="bbdr:war">
+    <output-path>$PROJECT_DIR$/bbdr/target</output-path>
+    <root id="archive" name="bbdr-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="bbdr:war exploded" />
+    </root>
+  </artifact>
+</component>

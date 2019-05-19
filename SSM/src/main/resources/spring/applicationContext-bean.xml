@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    
+    <bean id="logAspect" class="com.daishuai.ssm.aspect.LogAspect"></bean>
+    
+    <bean id="compactDisc" class="com.daishuai.ssm.domain.CompactDisc" />
+    
+    <bean id="cdPlayer" class="com.daishuai.ssm.domain.CDPlayer" c:cd-ref="compactDisc" p:cd-ref="compactDisc">
+        <property name="singers" ref="singers"></property>
+    </bean>
+    
+    <util:list id="singers">
+        <value>Zhangxueyou</value>
+        <value>Jay</value>
+    </util:list>
+
+    <bean id="compactDisc2" class="com.daishuai.ssm.domain.CompactDisc" scope="session">
+        <!--默认使用CGLib创建目标类的代理即，proxy-target-class属性为true
+            为false则要求生成基于接口的代理-->
+        <aop:scoped-proxy proxy-target-class="true" />
+    </bean>
+</beans>

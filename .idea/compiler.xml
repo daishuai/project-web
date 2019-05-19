@@ -1,16 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AjcSettings">
+    <option name="ajcPath" value="$MAVEN_REPOSITORY$/org/aspectj/aspectjtools/1.8.9/aspectjtools-1.8.9.jar" />
+  </component>
   <component name="CompilerConfiguration">
     <annotationProcessing>
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="bbdr" />
+        <module name="cxf-webservice" />
+        <module name="springboot-consumer" />
+        <module name="springboot-provider" />
+        <module name="springboot-starter-test" />
+        <module name="springboot-webservice" />
         <module name="SpringWeb" />
+        <module name="ssm" />
+        <module name="ssm-javaconfig" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="cxf-webservice" target="1.8" />
+      <module name="demo" target="1.8" />
+      <module name="springboot-consumer" target="1.6" />
+      <module name="springboot-provider" target="1.6" />
+      <module name="springboot-starter-test" target="1.6" />
+      <module name="springboot-webservice" target="1.8" />
       <module name="SpringWeb" target="1.8" />
+      <module name="ssm" target="1.8" />
+      <module name="ssm-javaconfig" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
